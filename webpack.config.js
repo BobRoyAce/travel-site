@@ -1,4 +1,5 @@
-const path = require('path');
+const path = require('path')
+
 const postCSSPlugins = [
   require('postcss-import'),
   require('postcss-mixins'),
@@ -23,7 +24,6 @@ module.exports = {
     host: '0.0.0.0'
   },
   mode: 'development',
-  watch: true,
   module: {
     rules: [
       {
