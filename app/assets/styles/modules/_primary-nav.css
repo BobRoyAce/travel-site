@@ -1,0 +1,42 @@
+.primary-nav {
+
+  &--pull-right {
+    @mixin atMedium {
+      float: right;   /* Float the nav bar to the right */
+    }
+  }
+
+  ul {
+    margin: 0;   /* ZERO margin */
+    padding: 0;   /* ZERO padding */
+    @mixin clearfix;   /* Add this since we are floating the child list items */
+  }
+
+  li {
+    list-style: none;   /* Don't include bullets */
+    display: inline-block;
+    padding-right: 7px;   /* Add padding between the list items */
+
+    @mixin atMedium {
+      padding-right: 20px;   /* Add padding between the list items */
+      float: left;   /* Float the list items to the left */
+      display: block;
+    }
+  }
+
+  li:last-child {
+    padding-right: 0;   /* Don't want to add right padding to the last list item, on smaller screens */
+
+    @mixin atMedium {
+      padding-right: 20px;
+    }
+  }
+
+  a {
+    color: #FFF;
+    text-decoration: none;   /* Remove the default link underlining */
+    font-weight: 300;   /* Make the font weight a bit lighter */
+    display: block;
+    padding: 12px 0;   /* Add some vertical padding to center the links within the site header */
+  }
+}
