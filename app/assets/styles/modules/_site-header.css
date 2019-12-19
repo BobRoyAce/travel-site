@@ -9,7 +9,6 @@
     background-color: rgba($mainBlue, .55);   /* Use a semitransparent blue background */
    }
 
-  background-color: none;   /* Don't use transparent background on small screens */
   @mixin atMedium {
     background-color: rgba($mainBlue, .3);   /* Use a semitransparent blue background */
   }
@@ -23,10 +22,11 @@
   &__logo {
     position: absolute;   
     top: 0;   /* Add this so that padding of site header doesn't shift the logo down */
-    background-color: $mainBlue;
-    padding: 13px 29px;   /* Add padding to all four sides */ 
     left: 50%;   /* Position the left edge of the logo at 50% of the page width  */
     transform: translateX(-50%);   /* Move the logo back half of its width, thereby centering it */
+    transform-origin: 50% 0;
+    background-color: $mainBlue;
+    padding: 13px 29px;   /* Add padding to all four sides */ 
 
     /* Don't adjust where logo is placed, if dealing with a screen that isn't small */
     @mixin atMedium {
@@ -36,31 +36,94 @@
     }
   }
 
+  &__logo__graphic {
+    text-indent: -9999px;
+  }
+
   &__menu-icon {
     width: 20px;
-    height: 20px;
-    background-color: #FFF;
+    height: 19px;
     position: absolute;
+    z-index: 10;   /* Give larger z-index value so that menu icon will always be on top. */
     top: 10px;
     right: 10px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 3px;
+      background-color: #FFF;
+      transform-origin: 0 0;
+      transition: transform .3s ease-out;   /* Transition the transform property change over 3/10 of a second. */
+    }
+
+    &__middle {
+      position: absolute;
+      top: 8px;
+      left: 0;
+      width: 20px;
+      height: 3px;
+      background-color: #FFF;
+      transition: all .3s ease-out;
+      transform-origin: 0 50%; 
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 20px;
+      height: 3px;
+      background-color: #FFF;
+      transform-origin: 0 100%;
+      transition: transform .3s ease-out;   /* Transition the transform property change over 3/10 of a second. */
+    }
 
     @mixin atMedium {
       display: none;
     }
   }
 
+  &__menu-icon--close-x {
+    &::before {
+      transform: rotate(45deg) scaleX(1.25);
+    }
+
+    /* Let's hide the middle bar. */
+    .site-header__menu-icon__middle {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    &::after {
+      transform: rotate(-45deg) scaleX(1.25) translateY(1px);
+    }
+  }
+
   &__menu-content {
     opacity: 0;   /* Make the menu content invisible, by default */
-    padding-top: 100px;
+    transform: scale(1.2);   /* Start out with size equal to 120% of normal */
+    transition: all .3s ease-out;   /* Make all property changes transition over the span of 0.3 seconds */
+    position: relative;
+    z-index: -10;   /* Want to make sure is behind everything else so user can't click on */
+    padding-top: 90px;
     text-align: center;
 
     @mixin atMedium {
-      display: block;
+      opacity: 1;   /* Make the menu content fully (100%) visible */
+      z-index: 1;
       padding-top: 0;
+      transform: scale(1);   /* On larger screens, simply use scale of 1 */
     }
 
     &--is-visible {
       opacity: 1;   /* Make the menu content fully (100%) visible */
+      z-index: 1;
+      transform: scale(1);
     }
   }
 }

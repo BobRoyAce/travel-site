@@ -14,6 +14,7 @@ class MobileMenu {
     this.menuIcon.addEventListener("click", () => this.toggleTheMenu());
   }
 
+  /*  */
   toggleTheMenu() {
     /*
       If the site-header__menu-content--is-visible class is assigned to the 
@@ -23,6 +24,9 @@ class MobileMenu {
 
     /* Toggle class to indicate whether or not site header is expanded. */
     this.siteHeader.classList.toggle("site-header--is-expanded");
+
+    /* Toggle whether or not an X should be shown where the menu icon was. */
+    this.menuIcon.classList.toggle("site-header__menu-icon--close-x");
   }
 }
 
